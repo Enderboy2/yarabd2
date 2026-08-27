@@ -1,0 +1,66 @@
+{
+  "currency": "EGP",
+  "brand": {
+    "ar": "نص رغيف",
+    "latin": "Nos Regheef",
+    "tagline": "Sandwiches, grills & Alexandrian classics"
+  },
+  "sections": [
+    {
+      "title": "Sandwiches",
+      "ar": "ساندويتشات",
+      "note": "Served in fresh baladi bread. Add tahina or salad from Extras.",
+      "items": [
+        { "name": "Alexandrian Liver", "ar": "كبدة اسكندراني", "desc": "Chilli, lemon, garlic, green pepper", "price": "55" },
+        { "name": "Sogo2", "ar": "سجق اسكندراني", "desc": "Slow-cooked in tomato and pepper", "price": "60" },
+        { "name": "Mombar", "ar": "ممبار", "desc": "Rice-stuffed, fried to order", "price": "65" },
+        { "name": "Hawawshi", "ar": "حواوشي", "desc": "Minced beef, onion, parsley, baked in bread", "price": "70" },
+        { "name": "Chicken Shawerma", "ar": "شاورما فراخ", "desc": "Garlic sauce, pickles", "price": "70" },
+        { "name": "Beef Shawerma", "ar": "شاورما لحمة", "desc": "Tahina, tomato, parsley", "price": "85" },
+        { "name": "Kofta", "ar": "كفتة", "desc": "Charcoal grilled, tahina", "price": "80" },
+        { "name": "Potato", "ar": "بطاطس", "desc": "Fries, tomato, hot sauce", "price": "30" },
+        { "name": "Potato & Cheese", "ar": "بطاطس بالجبنة", "desc": "Fries, roumy cheese", "price": "40" },
+        { "name": "Alexandrian Fool", "ar": "فول اسكندراني", "desc": "Oil, cumin, lemon", "price": "25" }
+      ]
+    },
+    {
+      "title": "Meals",
+      "ar": "وجبات",
+      "note": "All meals come with fries, salad, tahina and bread.",
+      "items": [
+        { "name": "Liver Meal", "ar": "وجبة كبدة", "price": "130" },
+        { "name": "Sogo2 Meal", "ar": "وجبة سجق", "price": "135" },
+        { "name": "Hawawshi Meal", "ar": "وجبة حواوشي", "price": "150" },
+        { "name": "Shawerma Meal", "ar": "وجبة شاورما", "desc": "Chicken or beef", "price": "165" },
+        { "name": "Mixed Grill", "ar": "مشويات مشكل", "desc": "Kofta, kebab, chicken", "price": "220" }
+      ]
+    },
+    {
+      "title": "Extras",
+      "ar": "إضافات",
+      "items": [
+        { "name": "Tahina", "ar": "طحينة", "price": "10" },
+        { "name": "Baladi Salad", "ar": "سلطة بلدي", "price": "15" },
+        { "name": "Pickles", "ar": "طرشي", "price": "10" },
+        { "name": "Fries", "ar": "بطاطس محمرة", "price": "30" },
+        { "name": "Roumy Cheese", "ar": "جبنة رومي", "price": "15" },
+        { "name": "Extra Bread", "ar": "عيش زيادة", "price": "5" }
+      ]
+    },
+    {
+      "title": "Drinks",
+      "ar": "مشروبات",
+      "items": [
+        { "name": "Still Water", "ar": "مياه معدنية", "price": "10" },
+        { "name": "Soft Drink", "ar": "مشروبات غازية", "price": "25" },
+        { "name": "Fresh Lemon", "ar": "ليمون فريش", "price": "35" },
+        { "name": "Ayran", "ar": "عيران", "price": "25" },
+        { "name": "Tea", "ar": "شاي", "price": "15" }
+      ]
+    }
+  ],
+  "footer": [
+    "Prices in EGP. Service and taxes not included.",
+    "Kindly place your order at the counter."
+  ]
+}

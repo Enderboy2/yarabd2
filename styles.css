@@ -1,0 +1,529 @@
+/* ============================================================
+   yara — decoy menu → glitch → editorial
+   ============================================================ */
+
+:root{
+  /* reveal palette */
+  --navy-900:#080e1a;
+  --navy-800:#0b1526;
+  --navy-700:#0f1c31;
+  --navy-600:#14243d;
+  --ink:#e9edf5;
+  --ink-dim:#93a2ba;
+  --ink-faint:#5f708b;
+  --pink:#f0b3c4;
+  --pink-deep:#e2879f;
+  --emerald:#2fae86;
+  --emerald-dim:rgba(47,174,134,.28);
+  --hair:rgba(255,255,255,.075);
+
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --serif:'Instrument Serif','Iowan Old Style','Times New Roman',serif;
+  --ar:'IBM Plex Sans Arabic','Inter',sans-serif;
+
+  --pad:clamp(20px,5vw,64px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);
+  background:#fff;
+  color:#14161a;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+body.is-locked{overflow:hidden}
+body.is-revealed{background:var(--navy-900)}
+img{max-width:100%;display:block}
+
+/* ============================================================
+   PHASE 1 — the decoy
+   ============================================================ */
+
+.stage{position:relative}
+.decoy{
+  background:#fdfdfb;
+  color:#16181c;
+  min-height:100vh;
+  width:100%;
+}
+.decoy.is-frozen{
+  position:fixed;
+  left:0; right:0;
+  z-index:10;
+}
+.decoy-body{
+  max-width:760px;
+  margin:0 auto;
+  padding:clamp(36px,7vw,80px) clamp(20px,5vw,40px) 120px;
+}
+
+.m-head{text-align:center;padding-bottom:clamp(28px,5vw,44px)}
+.m-mark{
+  font-family:var(--ar);
+  font-size:clamp(30px,7vw,44px);
+  font-weight:500;
+  letter-spacing:0;
+  margin:0;
+  color:#111;
+}
+.m-latin{
+  font-size:11px;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  color:#8a8a86;
+  margin:12px 0 0;
+  font-weight:500;
+}
+.m-tag{
+  font-size:13px;
+  color:#8a8a86;
+  margin:18px 0 0;
+  font-weight:300;
+}
+.m-rule{
+  width:44px;height:1px;background:#d6d6d0;
+  margin:26px auto 0;border:0;
+}
+
+.m-section{margin-top:clamp(34px,6vw,52px)}
+.m-section-head{
+  display:flex;align-items:baseline;gap:14px;
+  padding-bottom:14px;
+  border-bottom:1px solid #e7e7e1;
+  margin-bottom:6px;
+}
+.m-section-title{
+  font-size:12px;letter-spacing:.26em;text-transform:uppercase;
+  font-weight:600;color:#1a1c20;margin:0;white-space:nowrap;
+}
+.m-section-ar{
+  font-family:var(--ar);font-size:14px;color:#9a9a95;margin:0;
+  font-weight:400;margin-left:auto;
+}
+.m-note{font-size:12px;color:#9a9a95;margin:10px 0 0;font-weight:300;font-style:italic}
+
+.m-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:15px 0;
+  border-bottom:1px solid #f0f0ea;
+}
+.m-item:last-child{border-bottom:0}
+.m-item-main{flex:1;min-width:0}
+.m-item-name{
+  font-size:15px;font-weight:500;color:#16181c;margin:0;line-height:1.35;
+}
+.m-item-ar{
+  font-family:var(--ar);font-size:13px;color:#8f8f8a;margin:3px 0 0;font-weight:400;
+}
+.m-item-desc{
+  font-size:13px;color:#8f8f8a;margin:5px 0 0;font-weight:300;line-height:1.5;
+}
+.m-item-price{
+  font-size:14px;font-weight:500;color:#16181c;
+  font-variant-numeric:tabular-nums;
+  padding-top:1px;white-space:nowrap;
+}
+.m-item-price span{font-size:10px;color:#a9a9a3;letter-spacing:.1em;margin-left:4px}
+
+.m-foot{
+  margin-top:clamp(46px,8vw,72px);
+  padding-top:24px;
+  border-top:1px solid #e7e7e1;
+  text-align:center;
+}
+.m-foot p{font-size:12px;color:#a0a09a;margin:6px 0;font-weight:300;line-height:1.6}
+
+/* ============================================================
+   PHASE 2 — the glitch
+   ============================================================ */
+
+.glitch{
+  position:fixed;inset:0;z-index:40;
+  pointer-events:none;
+  opacity:0;visibility:hidden;
+  overflow:hidden;
+  contain:strict;
+}
+.glitch .gl{
+  position:absolute;inset:0;overflow:hidden;
+  will-change:transform,clip-path;
+}
+.glitch .gl-inner{
+  position:absolute;left:0;right:0;
+  top:var(--gy,0px);
+  background:#fdfdfb;
+}
+.glitch .gl-inner .decoy-body{padding-bottom:0}
+
+/* scanlines + noise, sits above the torn copies */
+.gl-fx{
+  position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(0deg,
+      rgba(0,0,0,.09) 0 1px,
+      transparent 1px 3px);
+  mix-blend-mode:multiply;
+  opacity:0;
+}
+.gl-flash{position:absolute;inset:0;background:#fff;opacity:0}
+
+/* --- active state --------------------------------------------------- */
+.is-glitching #glitch{opacity:1;visibility:visible}
+
+/* the frozen original: chromatic split + jitter */
+.is-glitching #decoy{
+  animation:jitter .16s steps(2,end) infinite;
+}
+.is-glitching #decoy .decoy-body{
+  text-shadow:
+    3px 0 0 rgba(255,74,140,.9),
+   -3px 0 0 rgba(0,224,160,.9);
+  animation:chroma .19s steps(2,end) infinite;
+}
+
+/* torn slices */
+.is-glitching .gl-a{animation:tear-a .21s steps(1,end) infinite}
+.is-glitching .gl-b{animation:tear-b .29s steps(1,end) infinite}
+.is-glitching .gl-a .gl-inner{
+  text-shadow:8px 0 0 rgba(255,74,140,.95),-7px 0 0 rgba(0,224,160,.85);
+}
+.is-glitching .gl-b .gl-inner{
+  text-shadow:-9px 0 0 rgba(255,120,170,1),5px 0 0 rgba(0,224,160,.9);
+  filter:invert(1) contrast(1.35);
+  opacity:.78;
+}
+.is-glitching .gl-fx{animation:fx .13s steps(1,end) infinite}
+.is-glitching .gl-flash{animation:flash 1.15s steps(1,end) 1 both}
+
+@keyframes jitter{
+  0%,100%{transform:translate3d(0,0,0)}
+  25%{transform:translate3d(-3px,1px,0)}
+  50%{transform:translate3d(2px,-2px,0)}
+  75%{transform:translate3d(-1px,2px,0)}
+}
+@keyframes chroma{
+  0%,100%{text-shadow:3px 0 0 rgba(255,74,140,.9),-3px 0 0 rgba(0,224,160,.9)}
+  33%{text-shadow:-7px 0 0 rgba(255,74,140,.95),6px 0 0 rgba(0,224,160,.95)}
+  66%{text-shadow:10px 0 0 rgba(255,120,170,.85),-8px 0 0 rgba(0,224,160,.8)}
+}
+@keyframes tear-a{
+  0%  {clip-path:inset(8% 0 78% 0); transform:translate3d(-16px,0,0)}
+  20% {clip-path:inset(42% 0 44% 0); transform:translate3d(22px,0,0)}
+  40% {clip-path:inset(66% 0 21% 0); transform:translate3d(-30px,2px,0)}
+  60% {clip-path:inset(24% 0 62% 0); transform:translate3d(12px,-2px,0)}
+  80% {clip-path:inset(83% 0 6% 0);  transform:translate3d(-9px,0,0)}
+  100%{clip-path:inset(53% 0 38% 0); transform:translate3d(26px,0,0)}
+}
+@keyframes tear-b{
+  0%  {clip-path:inset(70% 0 12% 0); transform:translate3d(24px,0,0)}
+  25% {clip-path:inset(15% 0 71% 0); transform:translate3d(-28px,0,0)}
+  50% {clip-path:inset(48% 0 40% 0); transform:translate3d(18px,3px,0)}
+  75% {clip-path:inset(88% 0 3% 0);  transform:translate3d(-20px,0,0)}
+  100%{clip-path:inset(32% 0 55% 0); transform:translate3d(30px,0,0)}
+}
+@keyframes fx{
+  0%,100%{opacity:.55} 50%{opacity:.15}
+}
+@keyframes flash{
+  0%,100%{opacity:0}
+  46%{opacity:0} 48%{opacity:.9} 51%{opacity:0}
+  72%{opacity:0} 74%{opacity:.7} 76%{opacity:0}
+}
+
+/* the navy shatter-wipe */
+.veil{
+  position:fixed;inset:0;z-index:60;
+  pointer-events:none;visibility:hidden;
+  display:flex;
+}
+.veil.is-on{visibility:visible}
+.veil .band{
+  flex:1 1 0;
+  background:var(--navy-900);
+  transform:scaleY(0);
+  transform-origin:top;
+}
+.veil .band:nth-child(even){transform-origin:bottom}
+.veil.is-on .band{
+  animation:band-in .34s cubic-bezier(.7,0,.2,1) forwards;
+  animation-delay:calc(var(--i) * 26ms);
+}
+@keyframes band-in{to{transform:scaleY(1.02)}}
+
+.veil.is-solid{background:var(--navy-900)}
+.veil.is-out{
+  animation:veil-out .5s ease .05s forwards;
+}
+@keyframes veil-out{to{opacity:0;visibility:hidden}}
+
+/* ============================================================
+   PHASE 3 — the reveal
+   ============================================================ */
+
+.reveal{
+  background:var(--navy-900);
+  color:var(--ink);
+  min-height:100vh;
+  position:relative;
+  overflow:hidden;
+}
+.reveal[hidden]{display:none}
+
+/* very soft, non-tacky ambient wash */
+.reveal::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(120vw 70vh at 82% -12%, rgba(226,135,159,.10), transparent 62%),
+    radial-gradient(100vw 60vh at 8% 104%, rgba(47,174,134,.085), transparent 60%);
+  z-index:0;
+}
+.reveal > *{position:relative;z-index:1}
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 var(--pad);
+}
+
+/* ---- hero ---- */
+.hero{
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:14vh 0 12vh;
+}
+.eyebrow{
+  font-size:10px;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--emerald);font-weight:500;
+  margin:0 0 clamp(22px,4vw,34px);
+}
+.hero h1{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(46px,10.5vw,116px);
+  line-height:.98;
+  letter-spacing:-.015em;
+  margin:0;
+  color:var(--ink);
+}
+.hero h1 em{
+  font-style:italic;
+  color:var(--pink);
+  display:block;
+}
+.hero-sub{
+  margin:clamp(28px,5vw,42px) 0 0;
+  max-width:46ch;
+  font-size:clamp(14px,2.2vw,17px);
+  line-height:1.75;
+  color:var(--ink-dim);
+  font-weight:300;
+}
+.hero-rule{
+  width:clamp(56px,10vw,96px);height:1px;
+  background:linear-gradient(90deg,var(--emerald),transparent);
+  border:0;margin:clamp(30px,5vw,44px) 0 0;
+}
+
+/* ---- grid section ---- */
+.notes{padding:clamp(40px,9vw,110px) 0 0}
+.notes-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:20px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--hair);
+  margin-bottom:clamp(26px,5vw,44px);
+}
+.notes-head h2{
+  font-size:11px;letter-spacing:.34em;text-transform:uppercase;
+  font-weight:500;color:var(--ink-dim);margin:0;
+}
+.notes-head .count{
+  font-size:11px;letter-spacing:.2em;color:var(--ink-faint);
+  font-variant-numeric:tabular-nums;
+}
+
+/* masonry via columns — a text-only note simply reads as a short column item */
+.grid{
+  column-count:1;
+  column-gap:clamp(16px,2.2vw,26px);
+}
+@media (min-width:720px){ .grid{column-count:2} }
+@media (min-width:1120px){ .grid{column-count:3} }
+
+.card{
+  break-inside:avoid;
+  -webkit-column-break-inside:avoid;
+  page-break-inside:avoid;
+  display:block;
+  margin:0 0 clamp(16px,2.2vw,26px);
+  background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
+  border:1px solid var(--hair);
+  border-radius:14px;
+  overflow:hidden;
+  -webkit-backdrop-filter:blur(14px) saturate(115%);
+  backdrop-filter:blur(14px) saturate(115%);
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1);
+}
+.card.in{opacity:1;transform:none}
+
+.card-figure{
+  margin:0;
+  border-bottom:1px solid rgba(47,174,134,.34);
+  background:var(--navy-700);
+}
+.card-figure img{
+  width:100%;height:auto;display:block;
+  aspect-ratio:4/5;object-fit:cover;
+}
+.card-body{padding:clamp(20px,2.4vw,28px)}
+
+.card-index{
+  font-size:10px;letter-spacing:.3em;
+  color:var(--emerald);
+  font-variant-numeric:tabular-nums;
+  margin:0 0 16px;
+  font-weight:500;
+}
+.card-msg{
+  margin:0;
+  color:var(--ink);
+  font-weight:300;
+  font-size:15.5px;
+  line-height:1.78;
+}
+.card-msg p + p{margin-top:1.05em}
+/* text-only notes carry themselves as a pull quote, not as a gap */
+.card.is-quote .card-body{padding:clamp(26px,3.4vw,40px) clamp(24px,3vw,34px)}
+.card.is-quote .card-msg{
+  font-family:var(--serif);
+  font-size:clamp(21px,2.6vw,27px);
+  line-height:1.34;
+  letter-spacing:-.005em;
+  color:#f3f6fb;
+}
+
+.card-memory{
+  margin:22px 0 0;
+  padding:16px 0 0 16px;
+  border-left:1px solid var(--emerald-dim);
+}
+.card-memory .label{
+  display:block;
+  font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--emerald);font-weight:500;margin-bottom:9px;
+}
+.card-memory p{
+  margin:0;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:16px;line-height:1.55;
+  color:var(--ink-dim);
+}
+
+.card-sign{
+  display:flex;align-items:baseline;gap:10px;
+  margin-top:22px;padding-top:16px;
+  border-top:1px solid var(--hair);
+}
+.card-name{
+  font-size:13px;font-weight:500;letter-spacing:.02em;
+  color:var(--pink);margin:0;
+}
+.card-role{
+  font-size:11px;color:var(--ink-faint);margin:0;font-weight:300;
+  letter-spacing:.04em;
+}
+
+/* ---- finale ---- */
+.gap{height:78vh}
+.finale{
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:0 var(--pad);
+}
+.finale-rule{
+  width:1px;height:clamp(50px,10vh,90px);
+  background:linear-gradient(180deg,transparent,var(--emerald));
+  border:0;margin:0 0 clamp(34px,6vh,56px);
+  opacity:0;transition:opacity 1s ease;
+}
+.finale-line{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:clamp(40px,9.6vw,92px);
+  line-height:1.06;
+  letter-spacing:-.02em;
+  color:var(--pink);
+  margin:0;
+  max-width:16ch;
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity 1.3s cubic-bezier(.22,1,.36,1),transform 1.3s cubic-bezier(.22,1,.36,1);
+}
+.finale-sub{
+  margin:clamp(30px,5vh,46px) 0 0;
+  font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:400;
+  opacity:0;transition:opacity 1.2s ease .5s;
+}
+.finale.in .finale-rule,
+.finale.in .finale-sub{opacity:1}
+.finale.in .finale-line{opacity:1;transform:none}
+
+.colophon{
+  padding:clamp(40px,8vh,80px) 0 clamp(34px,6vh,54px);
+  text-align:center;
+}
+.colophon p{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(95,112,139,.7);margin:0;font-weight:300;
+}
+
+/* ---- error fallback ---- */
+.boot-error{
+  font-family:var(--sans);
+  max-width:620px;margin:16vh auto;padding:0 24px;
+  color:#16181c;font-size:14px;line-height:1.7;
+}
+.boot-error code{
+  background:#f2f2ee;padding:2px 6px;border-radius:4px;font-size:13px;
+}
+
+/* ---- motion / a11y ---- */
+@media (prefers-reduced-motion:reduce){
+  .is-glitching #decoy,
+  .is-glitching #decoy .decoy-body,
+  .is-glitching .gl-a,.is-glitching .gl-b,
+  .is-glitching .gl-fx,.is-glitching .gl-flash,
+  .veil.is-on .band{animation:none!important}
+  .veil.is-on .band{transform:scaleY(1)}
+  .card{transition-duration:.01ms}
+  .finale-line{transition-duration:.01ms}
+}
+::selection{background:rgba(240,179,196,.28)}
+
+/* ---- hero entrance (added after the veil clears) ---- */
+.hero .eyebrow,
+.hero h1,
+.hero .hero-sub,
+.hero .hero-rule{
+  opacity:0;transform:translateY(20px);
+  transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.1s cubic-bezier(.22,1,.36,1);
+}
+.reveal.ready .hero .eyebrow{opacity:1;transform:none;transition-delay:.05s}
+.reveal.ready .hero h1{opacity:1;transform:none;transition-delay:.18s}
+.reveal.ready .hero .hero-rule{opacity:1;transform:none;transition-delay:.42s}
+.reveal.ready .hero .hero-sub{opacity:1;transform:none;transition-delay:.52s}
+@media (prefers-reduced-motion:reduce){
+  .hero .eyebrow,.hero h1,.hero .hero-sub,.hero .hero-rule{transition-duration:.01ms}
+}

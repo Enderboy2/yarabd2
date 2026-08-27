@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Nos Regheef — Menu</title>
+<meta name="description" content="Menu" />
+<meta name="theme-color" content="#ffffff" id="theme-color" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── PHASE 1 : the decoy menu ─────────────────────────────── -->
+  <div id="stage" class="stage">
+    <section id="decoy" class="decoy" aria-label="Menu">
+      <div id="decoy-body" class="decoy-body"></div>
+    </section>
+
+    <!-- glitch clone layers, injected at runtime -->
+    <div id="glitch" class="glitch" aria-hidden="true"></div>
+    <div id="veil" class="veil" aria-hidden="true"></div>
+  </div>
+
+  <!-- ── PHASE 3 : the real thing ─────────────────────────────── -->
+  <main id="reveal" class="reveal" hidden></main>
+
+  <script src="script.js"></script>
+</body>
+</html>
