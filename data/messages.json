@@ -80,7 +80,7 @@
       "name": "Malak Islam",
       "role": "",
       "message": "happy birthday yara !! 🫶🏽 enjoy it to the max and here ' s to many more memories and years together 🤞🏽🤞🏽 miss you bgdd i can't wait to see you",
-      "photo": "malak.png",
+      "photo": "photos/malak.png",
       "memory": ""
     },
     {
@@ -94,7 +94,14 @@
       "name": "Habiba",
       "role": "",
       "message": "Happy belated birthday Yaraaaa, I love youu so much. So glad that we got closer this year. Wish you all the best",
-      "photo": "habiba.jpeg",
+      "photo": "photos/habiba.jpeg",
+      "memory": ""
+    },
+    {
+      "name": "baby yara",
+      "role": "",
+      "message": "never let this smile fade",
+      "photo": "photos/habiba.jpeg",
       "memory": ""
     }
   ],
