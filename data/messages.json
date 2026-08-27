@@ -5,56 +5,18 @@
   "intro": "Everyone at this table wrote something down before you got here. Take your time with it — the food can wait.",
   "notesLabel": "From the table",
   "memoryLabel": "A memory",
-
   "people": [
     {
-      "name": "Youssef",
+      "name": "Raneem",
       "role": "",
-      "message": "You have this way of making an ordinary evening feel like it was planned. I hope this year is kinder to you than the last one was, and I hope you let people spoil you more often.",
-      "photo": "photos/youssef.jpg",
-      "memory": "The night we got completely lost and you insisted we were 'basically there' for forty minutes."
-    },
-    {
-      "name": "Nour",
-      "role": "",
-      "message": "Twenty-something years of you and I still learn something every time we talk. Happy birthday.",
-      "photo": "",
-      "memory": ""
-    },
-    {
-      "name": "Malak",
-      "role": "",
-      "message": "You are the person I call first, good news or bad. That is not a small thing and I do not say it enough.",
-      "photo": "",
-      "memory": "Sitting on the floor of your room at 3am eating cereal and deciding to fix our entire lives."
-    },
-    {
-      "name": "Omar",
-      "role": "",
-      "message": "Happy birthday. Genuinely one of the few people I have never had to explain myself to.",
-      "photo": "photos/omar.jpg",
-      "memory": ""
-    },
-    {
-      "name": "Hana",
-      "role": "",
-      "message": "I keep thinking about how much has changed since we met and how little you have.\n\nStill the loudest laugh in any room. Still the first one to defend someone who isn't there. Don't let anything sand that down.",
-      "photo": "photos/hana.jpg",
-      "memory": "That awful road trip playlist you refused to skip a single song from."
-    },
-    {
-      "name": "Kareem",
-      "role": "",
-      "message": "Wishing you a year where things finally go your way without you having to fight for them first.",
-      "photo": "",
+      "message": "Happiest of birthdays yaya🤍 Here’s to many more years of laughing until our stomachs hurt and making the most random memories together. I love youuuuu❤️",
+      "photo": "photos/raneem.jpeg",
       "memory": ""
     }
   ],
-
   "finale": {
     "line": "Don't bother deciding. We already ordered.",
     "sub": "Look up"
   },
-
   "colophon": "Made by everyone who showed up"
 }
