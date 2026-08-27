@@ -90,11 +90,14 @@
     h += '<div class="grid">';
 
     d.people.forEach(function (p, i) {
-      var hasPhoto = !!(p.photo && String(p.photo).trim());
+      // a bare filename means photos/ — easy thing to forget while editing the JSON
+      var src = String(p.photo || '').trim();
+      if (src && src.indexOf('/') === -1 && src.indexOf(':') === -1) src = 'photos/' + src;
+      var hasPhoto = !!src;
       var cls = 'card' + (hasPhoto ? '' : ' is-quote');
       h += '<article class="' + cls + '">';
       if (hasPhoto) {
-        h += '<figure class="card-figure"><img src="' + esc(p.photo) +
+        h += '<figure class="card-figure"><img src="' + esc(src) +
              '" alt="" loading="eager" decoding="async" /></figure>';
       }
       h += '<div class="card-body">';
@@ -126,6 +129,10 @@
       img.addEventListener('error', function () {
         var card = img.closest('.card');
         var fig = img.closest('.card-figure');
+        // she never sees a broken image — but say so loudly in the console,
+        // otherwise a typo'd filename just looks like a note with no photo
+        console.warn('[photo missing] ' + img.getAttribute('src') +
+                     ' — check the filename and that it is inside photos/');
         if (fig) fig.remove();
         if (card) card.classList.add('is-quote');
       });
